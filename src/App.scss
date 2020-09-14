@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+}
+
+.App {
+    display: flex;
+    justify-content: center;
+
+
+    .board {
+
+        .dealer {
+            padding: 2%;
+            width: 100%;
+
+            .cards {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                background-color: rgb(37, 112, 2);
+                padding: 2%;
+
+                .card {
+                    width: 10%;
+                    margin: 0 1%;
+                }
+            }
+
+        }
+
+        .player {
+            padding: 2%;
+            width: 100%;
+
+            .cards {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                background-color: rgb(37, 112, 2);
+                padding: 2%;
+
+                .card {
+                    width: 10%;
+                    margin: 0 1%;
+                }
+            }
+        }
+    }
+}
