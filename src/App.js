@@ -15,7 +15,7 @@ import Dealer from './Classes/Dealer'
 
 function App() {
 
- 
+
 
   // ---- > INITIALIZE 
   // INIT CARDS
@@ -121,34 +121,13 @@ function App() {
   draw(dealer, deck)
   draw(dealer, deck)
 
-  // console.log(dealer);
-
-   // STATE 
-   const [dealerHand, setDealerHand] = useState(dealer.hand)
-   const [playerHand, setPlayerHand] = useState(player1.hand)
-
-   
-
-  //  const dealerDraw = e => {
-  //    e.preventDefault()
-
-  //    const rtnCard = draw(dealer, deck)
-
-  //    console.log(rtnCard)
-
-  //    if (dealerHand.indexOf(rtnCard) !== -1){
-  //      console.log("DUPLICATE");
-  //     //  dealerDraw(e)
-  //    }
-  //    if (dealerHand.length === 5){
-  //      return
-  //    }
-  //    else if (dealerHand.indexOf(rtnCard) === -1) {
-       
-  //     setDealerHand([...dealerHand, rtnCard])
-  //     console.log(dealerHand);
-  //    }
-  //  }
+  // STATE 
+  const [dealerHand, setDealerHand] = useState(dealer.hand)
+  const [playerHand, setPlayerHand] = useState(player1.hand)
+  const [playing, setPlaying] = useState(false)
+  const [pot, setPot] = useState(board.potbalance)
+  const [wager, setWager] = useState([])
+  const [p1Wallet, setP1Wallet] = useState(player1.wallet)
 
 
   return (
@@ -156,35 +135,66 @@ function App() {
       <div className="board">
         <div className="dealer">
           <div className="cards">
-            {dealerHand.map( card => {
+            {dealerHand.map(card => {
               return <img className="card" src={card.image} alt={card.name} key={`${dealer.name}${card.name}`} />
             })}
           </div>
 
-          
+
         </div>
 
-        <div className="player">
-          <div className="cards">
-            {playerHand.map(card => {
-              return <img className="card" src={card.image} alt={card.name} key={`${player1.name}${card.name}`} />
-            })}
+        <div className="middle">
+          <div className="pot">
+            <h6>${pot}</h6>
           </div>
-          {/* <button onClick={dealerDraw}>Check</button> */}
         </div>
+
+
 
         <div className="seats">
           <div className="s1">
+            <div className="player">
+              <div className="cards">
+                {playerHand.map(card => {
+                  return <img className="card" src={card.image} alt={card.name} key={`${player1.name}${card.name}`} />
+                })}
+              </div>
+              <div className="tools">
+                <div className="actions">
+                  <button>Stand</button>
+                  <button onClick={() => {
+                    wager.forEach( wage => {board.wager(wage, player1)})
+                    setPot(board.potbalance)
+                    setP1Wallet(player1.wallet)
+                  }}>Bet</button>
+                  <button>Check</button>
+                  <button>Fold</button>
+                </div>
 
+                <div className="chips">
+                  <div className="balance">
+                    <h5>{p1Wallet.balance}</h5>
+                  </div>
+                  <div className="denominations">
+                    <div onClick={() => setWager([...wager, onechip])} className="chip"><h4>1</h4></div>
+                    <div onClick={() => setWager([...wager, fivechip])} className="chip"><h4>5</h4></div>
+                    <div onClick={() => setWager([...wager, tenchip])} className="chip"><h4>10</h4></div>
+                    <div onClick={() => setWager([...wager, twentyfivechip])} className="chip"><h4>25</h4></div>
+                    <div onClick={() => setWager([...wager, fiftychip])} className="chip"><h4>50</h4></div>
+                    <div onClick={() => setWager([...wager, hundredchip])} className="chip"><h4>100</h4></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="s2">
-            
+
           </div>
           <div className="s3">
-            
+
           </div>
           <div className="s4">
-            
+
           </div>
         </div>
       </div>

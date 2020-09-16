@@ -6,46 +6,128 @@
 }
 
 .App {
-    display: flex;
-    justify-content: center;
-
 
     .board {
 
         .dealer {
-            padding: 2%;
             width: 100%;
+            height: 30vh;
+            position: relative;
 
             .cards {
                 width: 100%;
+                height: 100%;
                 display: flex;
                 justify-content: center;
                 background-color: rgb(37, 112, 2);
-                padding: 2%;
-
+                padding: 1% 0;
                 .card {
                     width: 10%;
                     margin: 0 1%;
                 }
             }
-
         }
 
-        .player {
-            padding: 2%;
+        .middle {
             width: 100%;
-
-            .cards {
-                width: 100%;
+            height: 30vh;
+            .pot {
+                height: 100%;
                 display: flex;
                 justify-content: center;
-                background-color: rgb(37, 112, 2);
-                padding: 2%;
+                background-color: rgb(20, 104, 25);
+                padding: 1% 0;
 
-                .card {
-                    width: 10%;
-                    margin: 0 1%;
+                h6 {
+                    font-size: 3rem;
+                    align-self: center;
+                    color: white;
                 }
+            }
+        }
+
+        
+        .seats {
+            width: 100%;
+            height: 30vh;
+            background-color: rgb(9, 128, 88);
+            display: flex;
+            justify-content: center;
+
+            .s1,.s2,.s3,.s4 {
+                width: 25%;
+                height: 100%;
+                border: 1px solid black;
+
+                .player {
+                    width: 100%;
+                    height: 100%;
+        
+                    .cards {
+                        width: 100%;
+                        height: 70%;
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        background-color: rgb(37, 112, 2);
+        
+                        .card {
+                            width: 29%;
+                            margin: 0 1%;
+                            align-self: center;
+                        }
+                    }
+                }
+
+                .tools {
+                    width: 100%;
+                    height: 30%;
+                    background-color: rgb(42, 42, 42);
+                    display: flex;
+                    justify-content: space-between;
+                    color: white;
+
+                    .actions {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        button {
+                            padding: 0 2%;
+                        }
+                    }
+
+                    .chips {
+                        width: 50%;
+
+                        .balance {
+                            color: rgb(25, 206, 25);
+                        }
+
+                        .denominations {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+
+                            .chip {
+                                width: 30%;
+                                height: 100%;
+                                background-color: rgb(204, 59, 59);
+                                padding: 2%;
+                                margin: 0 2%;
+                                border-radius: 100%;
+                                display: flex;
+                                justify-content: center;
+
+                                h4 {
+                                    align-self: center;
+                                }
+                            }
+                        }
+                    }
+                }
+        
             }
         }
     }

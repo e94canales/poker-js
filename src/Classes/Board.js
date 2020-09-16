@@ -1,6 +1,7 @@
 export default class Board {
     constructor(pot = [], seats = 4, players = []){
         this.pot = pot
+        this.potbalance = 0
         this.seats = seats
         this.players = players
         this.availableseats = this.seats - this.players.length
@@ -11,8 +12,13 @@ export default class Board {
         this.availableseats = this.seats - this.players.length
     }
 
-    bet(chips) {
-        chips.forEach(chip => {this.pot.push(chip)})
+    wager(chip, player) {
+        this.pot.push(chip)
+        this.potbalance += chip.value
+        player.wallet.chips.splice(player.wallet.chips.indexOf(chip), 1)
+        player.wallet.balance -= chip.value
+        console.log(this);
+        console.log(player)
     }
 
     stand(player) {
@@ -22,6 +28,10 @@ export default class Board {
 
     seatsAvailable() {
         return this.availableseats
+    }
+
+    getBalance(){
+        return this.potbalance
     }
 
 }
