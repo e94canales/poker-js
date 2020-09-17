@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { deal, draw } from './Util/Functions'
+import { deal, draw, getPotBal, setWagersState } from './Util/Functions'
 
 // CLASS IMPORTS
 import Card from './Classes/Card'
@@ -111,14 +111,8 @@ function App() {
   board.join(player1)
   deal(player1, deck)
 
-  // console.log(player1)
-
   // Dealer
   const dealer = new Dealer("dealer", null, [], "dealer")
-  draw(dealer, deck)
-  draw(dealer, deck)
-  draw(dealer, deck)
-  draw(dealer, deck)
   draw(dealer, deck)
 
   // STATE 
@@ -127,6 +121,7 @@ function App() {
   const [playing, setPlaying] = useState(false)
   const [pot, setPot] = useState(board.potbalance)
   const [wager, setWager] = useState([])
+  const [currentWager, setCurrentWager] = useState([])
   const [p1Wallet, setP1Wallet] = useState(player1.wallet)
 
 
@@ -135,9 +130,9 @@ function App() {
       <div className="board">
         <div className="dealer">
           <div className="cards">
-            {dealerHand.map(card => {
+            {playing ? dealerHand.map(card => {
               return <img className="card" src={card.image} alt={card.name} key={`${dealer.name}${card.name}`} />
-            })}
+            }) : ""}
           </div>
 
 
@@ -149,23 +144,26 @@ function App() {
           </div>
         </div>
 
-
-
         <div className="seats">
           <div className="s1">
             <div className="player">
-              <div className="cards">
-                {playerHand.map(card => {
+            <div className="cards">
+              {playing ? 
+                playerHand.map(card => {
                   return <img className="card" src={card.image} alt={card.name} key={`${player1.name}${card.name}`} />
-                })}
-              </div>
+                })
+               : ""}
+               </div>
               <div className="tools">
                 <div className="actions">
                   <button>Stand</button>
-                  <button onClick={() => {
+                  <button onClick={e => {
+                    e.preventDefault()
                     wager.forEach( wage => {board.wager(wage, player1)})
                     setPot(board.potbalance)
                     setP1Wallet(player1.wallet)
+                    setCurrentWager([])
+                    setPlaying(true)
                   }}>Bet</button>
                   <button>Check</button>
                   <button>Fold</button>
@@ -174,14 +172,15 @@ function App() {
                 <div className="chips">
                   <div className="balance">
                     <h5>{p1Wallet.balance}</h5>
+                    <h5>{getPotBal(currentWager)}</h5>
                   </div>
                   <div className="denominations">
-                    <div onClick={() => setWager([...wager, onechip])} className="chip"><h4>1</h4></div>
-                    <div onClick={() => setWager([...wager, fivechip])} className="chip"><h4>5</h4></div>
-                    <div onClick={() => setWager([...wager, tenchip])} className="chip"><h4>10</h4></div>
-                    <div onClick={() => setWager([...wager, twentyfivechip])} className="chip"><h4>25</h4></div>
-                    <div onClick={() => setWager([...wager, fiftychip])} className="chip"><h4>50</h4></div>
-                    <div onClick={() => setWager([...wager, hundredchip])} className="chip"><h4>100</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, onechip, setCurrentWager, currentWager)} className="chip"><h4>1</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, fivechip, setCurrentWager, currentWager)} className="chip"><h4>5</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, tenchip, setCurrentWager, currentWager)} className="chip"><h4>10</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, twentyfivechip, setCurrentWager, currentWager)} className="chip"><h4>25</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, fiftychip, setCurrentWager, currentWager)} className="chip"><h4>50</h4></div>
+                    <div onClick={() => setWagersState(setWager, wager, hundredchip, setCurrentWager, currentWager)} className="chip"><h4>100</h4></div>
                   </div>
                 </div>
               </div>
