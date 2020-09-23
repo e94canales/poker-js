@@ -4,5 +4,8 @@ export default class Player {
         this.wallet = wallet
         this.hand = hand
         this.type = type
+        this.score = 0
+        this.straight = []
+        this.sorted = []
     }
 }

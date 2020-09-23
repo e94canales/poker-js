@@ -15,7 +15,6 @@ export default class Board {
     }
 
     wager(chip, player) {
-        // NEED TO FIX ISSUE WITH CHANGE NOT DISPENSING CORRECTLY. DOESNT ACCURATELY READ THAT A CHIP IS IN WALLET
         this.pot.push(chip)
         this.potbalance += chip.value
         let contains = null
@@ -26,7 +25,6 @@ export default class Board {
             if (chip.value === player.wallet.chips[i].value){
                 contains = true
                 containedChip = player.wallet.chips[i]
-                console.log(containedChip)
                 break
             }
         }
@@ -59,7 +57,7 @@ export default class Board {
                 return
             }
             else {
-                console.log("gtChange")
+                console.log("getChange")
                 let change = getChange(rtnChip, chip)
                 change.forEach( c => player.wallet.chips.push(c))
                 player.wallet.chips.splice(player.wallet.chips.indexOf(rtnChip), 1)
@@ -83,6 +81,30 @@ export default class Board {
 
     getBalance(){
         return this.potbalance
+    }
+
+    getResult(players){
+        let playerHands = {}
+        for (let i = 0; i < players.length; i++){
+            if (!(players[i].name in playerHands)){
+                playerHands[players[i].name] = players[i].hand
+            }
+        }
+        console.log(playerHands)
+    }
+
+    payout(player, setPot) {
+        let playerUpdated = player
+        let pay = this.pot
+        for (let i = 0; i < this.pot.length; i++){
+            playerUpdated.wallet.chips.push(pay[i])
+            playerUpdated.wallet.balance += pay[i].value
+        }
+        this.pot = []
+        this.potbalance = 0
+        setPot(0)
+        console.log(player)
+        console.log(this)
     }
 
 }
